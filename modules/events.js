@@ -11,15 +11,15 @@ async function getAllEvents(req, res) {
       INNER JOIN country
       ON city.country = country.pk;`;
 
-    connection.query(sql, (err, results) => {
+    await connection.query(sql, (err, results) => {
       res.send(results);
     });
   } catch (err) {
     console.log('An error happened in function getAllEvents: ', err.message);
     res.end(err.message);
-  } finally {
-    connection.end();
-  }
+  }/*  finally {
+    await connection.end();
+  } */
 }
 
 module.exports = {

@@ -17,68 +17,16 @@ body {
   height: 100%;
 }
 
-.calendar {
-  max-width: 100%;
-}
-
-.calendar .fc-content .fc-time {
-  display: none;
-}
-
-.calendar .event-content span:last-child {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 106;
-  background-color: black;
-  color: white;
-  padding: 20px;
-  width: 300px;
-}
-
-.calendar .event-content span:last-child:empty {
-  background-color: unset;
-}
-
-.calendar .fc-day-grid-event .fc-content.event-content,
-.calendar .fc-row.fc-rigid {
-  overflow: visible;
-}
-
-.calendar .event-content p {
-  color: white;
-  margin-bottom: 0;
-  white-space: break-spaces;
-}
-
-.calendar .event-content p.event-title {
-  font-weight: bold;
-  font-size: 18px;
-  text-transform: uppercase;
-  margin-bottom: 15px;
-}
-
-.calendar .event-content p.event-description {
-  margin-bottom: 15px;
-}
-
-.calendar .fc-day-grid .fc-row {
-  z-index: unset;
-}
-
 .navbar-brand {
-  font-family: 'Shadows Into Light', cursive;
   font-size: 24px;
 }
-
 
 p {
   color: #b3b3b3;
   font-weight: 300; 
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+h1, h2, h3, h4 {
   font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
 }
 
@@ -93,15 +41,16 @@ a {
 }
 
 a, a:hover {
-  text-decoration: none !important; 
+  text-decoration: none; 
+}
+
+.active a {
+  font-weight: bold;
+  color: #000;
 }
 
 .content {
   padding: 7rem 0; 
-}
-
-h2 {
-  font-size: 20px; 
 }
 
 button.btn {
@@ -120,6 +69,8 @@ button.btn:focus {
   border: none;
   color: #fff;
 }
+
+/* ACCORDION */
 
 .accordion {
   margin-bottom: 40px;
@@ -174,6 +125,16 @@ button.btn:focus {
   border-radius: 5px;
 }
 
+#entries-container .entity-content button {
+  border: none;
+  color: #fff;
+  background-color: #3794c1;
+  border-radius: 5px;
+  margin-left: 10px;
+  padding: 2px 15px;
+  font-size: 14px;
+}
+
 #entries-container .entity-content #delete-btn,
 #entries-container .entity-content #edit-btn {
   background-color: #e75d5d;
@@ -200,6 +161,12 @@ button.btn:focus {
   box-shadow: none; 
 }
 
+/* CALENDAR */
+
+.container.calendar {
+  max-width: 100%;
+}
+
 #calendar {
   max-width: 900px;
   margin: 0 auto; 
@@ -222,4 +189,104 @@ button.btn:focus {
   color: #fff;
   background-color: #333e4e;
   border-color: #333e4e;
+}
+
+#calendar .event-container {
+  position: relative;
+}
+
+#calendar .event-container .event-content {
+  background-color: #333e4e;
+  border-color: #333e4e;
+  border-radius: 0.25em;
+  padding: 6px;
+  line-height: initial;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#calendar .event-container .event-content p {
+  color: #fff;
+  margin: 0;
+}
+
+#calendar .event-container .modal-container {
+  display: none;
+}
+
+#calendar .event-container.show .modal-container {
+  background-color: rgba(0,0,0,0.3);
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;
+}
+
+#calendar .event-container.show .modal-container .modal-content {
+  background-color: #fff;
+  width: 300px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#calendar .event-container.show .modal-container button {
+  background-color: #333e4e;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  height: 50px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#calendar .event-container.show .modal-container p {
+  color: #000;
+}
+
+#calendar .event-container.show .modal-container p.event-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: initial;
+  color: #cd2929;
+}
+
+#calendar .event-container.show .modal-container p.event-date {
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+#calendar .event-container.show .modal-container p.event-address {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#calendar .fc-day-grid .fc-row {
+  overflow: hidden;
+}
+
+#calendar .fc-day-grid.show .fc-row {
+  z-index: unset;
+}
+
+.fc-row .fc-content-skeleton.modifyLayer {
+  z-index: unset;
+}
+
+.fc-row .fc-content-skeleton.modifyLayer .fc-today span.fc-day-number {
+  z-index: 1;
+  position: relative;
 }
