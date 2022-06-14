@@ -79,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
+  let editBtnClicked = true;
   document.addEventListener( "click", (event) => {
     const element = event.target;
     let isBooks;
@@ -88,40 +89,43 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if(element.tagName == "I" && element.className == "fas fa-edit" && isBooks) {
       const id = element.parentElement.parentElement.querySelector('#entityID').textContent.slice(5);
-      
       const selectedElement = element.parentElement.querySelector('span');
       selectedElement.setAttribute("contenteditable", "true");
       selectedElement.classList.add("editor");
 
-      const button = document.createElement("button");
-      button.innerHTML = "Save";
-      selectedElement.after(button);
+      if (editBtnClicked) {
+        editBtnClicked = !editBtnClicked;
+        const button = document.createElement("button");
+        button.innerHTML = "Save";
+        selectedElement.after(button);
 
-      let title = document.getElementById("entity-title").innerText;
-      let writer = document.getElementById("entity-writer").innerText;
-      let publish_date = document.getElementById("entity-publish_date").innerText;
+        let title = document.getElementById("entity-title").innerText;
+        let writer = document.getElementById("entity-writer").innerText;
+        let publish_date = document.getElementById("entity-publish_date").innerText;
 
-      button.addEventListener( "click", (event) => {
-        if (event.target.previousElementSibling.id === 'entity-title') {
-          title = selectedElement.innerText;
-        }
-        if (event.target.previousElementSibling.id === 'entity-writer') {
-          writer = selectedElement.innerText;
-        }
-        if (event.target.previousElementSibling.id === 'entity-publish_date') {
-          publish_date = selectedElement.innerText;
-        }
+        button.addEventListener( "click", (event) => {
+          if (event.target.previousElementSibling.id === 'entity-title') {
+            title = selectedElement.innerText;
+          }
+          if (event.target.previousElementSibling.id === 'entity-writer') {
+            writer = selectedElement.innerText;
+          }
+          if (event.target.previousElementSibling.id === 'entity-publish_date') {
+            publish_date = selectedElement.innerText;
+          }
 
-        fetch(`http://localhost:1337/api/books/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ title, writer, publish_date })
-        }).then(() => {
-          button.remove();
-        }).catch((err) => console.error(err));
-      });  
+          fetch(`http://localhost:1337/api/books/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, writer, publish_date })
+          }).then(() => {
+            editBtnClicked = true;
+            button.remove();
+          }).catch((err) => console.error(err));
+        });
+      }  
     }
   });
 
