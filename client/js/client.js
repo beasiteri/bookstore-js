@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
-   /* document.getElementById('test').onclick = () => {
+   document.getElementById('test').onclick = () => {
     fetch('http://localhost:1337/test')
-      .then((respon =>se) {
+      .then((response) => {
         return response.json();
       })
       .then((data) => {
         document.getElementById('test-number').innerHTML = `${data.length} test elements`;
       })
-  }; */
+  };
 
   document.getElementById('none').onclick = (event) => {
     event.preventDefault();
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById('books').onclick = (event) => {
     event.preventDefault();
-    fetch('http://localhost:1337/books')
+    fetch('http://localhost:1337/api/books')
       .then((response) => {
         return response.json();
       })
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const writer = document.getElementById('writer').value;
     const publish_date = document.getElementById('publish_date').value;
 
-    fetch('http://localhost:1337/books', {
+    fetch('http://localhost:1337/api/books', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const id = element.parentElement.previousElementSibling.querySelector('#entityID').textContent.slice(5);
       const elementParent = element.parentElement.parentElement;
 
-      fetch(`http://localhost:1337/books/${id}`, {
+      fetch(`http://localhost:1337/api/books/${id}`, {
         method: 'DELETE',
       }).then(() => {
         elementParent.remove();
@@ -81,8 +81,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener( "click", (event) => {
     const element = event.target;
-    const isBooks = element.parentElement.parentElement.classList.value === 'books';
-
+    let isBooks;
+    if (element.parentElement) {
+      isBooks = element.parentElement.parentElement.classList.value === 'books';
+    }
+    
     if(element.tagName == "I" && element.className == "fas fa-edit" && isBooks) {
       const id = element.parentElement.parentElement.querySelector('#entityID').textContent.slice(5);
       
@@ -109,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
           publish_date = selectedElement.innerText;
         }
 
-        fetch(`http://localhost:1337/books/${id}`, {
+        fetch(`http://localhost:1337/api/books/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -125,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById('customers').onclick = (event) => {
     event.preventDefault();
-    fetch('http://localhost:1337/customers')
+    fetch('http://localhost:1337/api/customers')
       .then((response) => {
         return response.json();
       })
@@ -168,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const postalCode = document.getElementById('postal_code').value;
     const city = document.getElementById('city').value;
 
-    fetch('http://localhost:1337/customers', {
+    fetch('http://localhost:1337/api/customers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -195,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const id = element.parentElement.previousElementSibling.querySelector('#entityID').textContent.slice(4);
       const elementParent = element.parentElement.parentElement;
 
-      fetch(`http://localhost:1337/customers/${id}`, {
+      fetch(`http://localhost:1337/api/customers/${id}`, {
         method: 'DELETE',
       }).then(() => {
         elementParent.remove();
@@ -205,7 +208,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener( "click", (event) => {
     const element = event.target;
-    const isCustomers = element.parentElement.parentElement.classList.value === 'customers';
+    let isCustomers;
+    if (element.parentElement) {
+      isCustomers = element.parentElement.parentElement.classList.value === 'customers';
+    }
 
     if(element.tagName == "I" && element.className == "fas fa-edit" && isCustomers) {
       const id = element.parentElement.parentElement.querySelector('#entityID').textContent.slice(4);
@@ -254,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
           subscribe_date = selectedElement.innerText;
         }
 
-        fetch(`http://localhost:1337/customers/${id}`, {
+        fetch(`http://localhost:1337/api/customers/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -270,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById('invoices').onclick = (event) => {
     event.preventDefault();
-    fetch('http://localhost:1337/invoices')
+    fetch('http://localhost:1337/api/invoices')
       .then((response) => {
         return response.json();
       })
@@ -307,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalPrice = document.getElementById('total_price').value;
     const items = document.getElementById('items').value;
 
-    fetch('http://localhost:1337/invoices', {
+    fetch('http://localhost:1337/api/invoices', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -331,7 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const id = element.parentElement.previousElementSibling.querySelector('#entityID').textContent.slice(4);
       const elementParent = element.parentElement.parentElement;
 
-      fetch(`http://localhost:1337/invoices/${id}`, {
+      fetch(`http://localhost:1337/api/invoices/${id}`, {
         method: 'DELETE',
       }).then(() => {
         elementParent.remove();
@@ -342,7 +348,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener( "click", (event) => {
     const element = event.target;
-    const isInvoices = element.parentElement.parentElement.classList.value === 'invoices';
+    let isInvoices;
+    if (element.parentElement) {
+      isInvoices = element.parentElement.parentElement.classList.value === 'invoices';
+    }
 
     if(element.tagName == "I" && element.className == "fas fa-edit" && isInvoices) {
       const id = element.parentElement.parentElement.querySelector('#entityID').textContent.slice(4);
@@ -374,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
           items = selectedElement.innerText;
         }
 
-        fetch(`http://localhost:1337/invoices/${id}`, {
+        fetch(`http://localhost:1337/api/invoices/${id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'

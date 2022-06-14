@@ -1,15 +1,10 @@
-const mysql = require('mysql');
+const { MySQL } = require("mysql-promisify");
 
-const connection = mysql.createConnection({
+const db = new MySQL({
   host: 'localhost',
   user     : 'bea',
   password : 'Localhost22!',
   database: 'library'
 });
- 
-connection.connect(function(err) {
-  if (err) throw err;
-  console.log('MySql Connected...');
-});
 
-module.exports = connection;
+module.exports = db;

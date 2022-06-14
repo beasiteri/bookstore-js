@@ -6,7 +6,7 @@ async function test(req, res) {
   try {
     client = await mongo();
     const db = client.db('library');
-    const bookCollection = await db.collection('book');
+    const bookCollection = await db.collection('books');
     const allBooks = await bookCollection.find().toArray();
 
     res.json(allBooks);
